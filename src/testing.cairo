@@ -16,7 +16,49 @@ fn main() {
     tup();
 
     println!("result is {}", testing_function(10));
+
+    loop_with_continue();
+
+    loop_with_return();
+
+    while_loop();
+
+    fibonacci(12);
+
+    factorial_of_a_number(30);
+
+    array_macro();
+
+    let p1 = Point { x: 5, y: 10 };
+    foo(p1);
+    foo(p1);
+
+    
+    let arr1: Array<u128> = array![1,2,3,4];
+
+    let (arr2, len) = calculate_length(arr1);
+
+    println!("array the length is {}",  len);
 }
+
+
+fn calculate_length(arr: Array<u128>) -> (Array<u128>, usize) {
+    let length = arr.len(); // len() returns the length of an array
+
+    (arr, length)
+}
+
+#[derive(Copy, Drop)]
+struct Point {
+    x: u128,
+    y: u128,
+}
+
+fn foo(mut p: Point) { // do something with p
+    p.x += 40;
+    println!("Px => {}", p.x);
+}
+
 
 //variables in cairo are immutable by default
 fn variable() {
@@ -162,6 +204,99 @@ fn tryConvertInto() {
 
 fn testing_function(number: u32) -> u32 {
     number + 1
-    // return number + 1;
+// return number + 1;
 
+}
+
+fn loop_with_continue() {
+    let mut i: usize = 0;
+    loop {
+        if i == 10 {
+            break;
+        }
+        if i == 5 {
+            i += 1;
+            continue;
+        }
+        println!("i = {}", i + 1);
+        i += 1;
+    }
+}
+
+fn loop_with_return() {
+    let mut counter = 0;
+
+    let result = loop {
+        if counter == 10 {
+            break counter * 2;
+        }
+        counter += 1;
+    };
+
+    println!("The result is {}", result);
+}
+
+fn while_loop() {
+    let mut number = 3;
+
+    while number != 0 {
+        println!("{number}!");
+        number -= 1;
+    };
+
+    println!("LIFTOFF!!!");
+}
+
+fn fibonacci(num: u8) {
+    let mut a = 0;
+    let mut b = 1;
+
+    let mut i = 0;
+    println!("{}", a);
+    println!("{}", b);
+
+    loop {
+        if i == num {
+            break;
+        }
+
+        let mut temp = b;
+        let mut c = a + b;
+        a = temp;
+        b = c;
+
+        println!("{}", c);
+
+        i += 1;
+    }
+}
+
+fn factorial_of_a_number(num: u256) {
+    let mut i: u256 = num;
+    let mut result: u256 = 1;
+
+    loop {
+        if i == 1 {
+            break;
+        }
+
+        result *= i;
+
+        i -= 1;
+    };
+
+    println!("{}", result);
+}
+
+
+fn array_macro() {
+    let arr = array![1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+    let mut i = 0;
+
+    while i < arr.len() {
+        println!("index {} => {}", i, *arr[i]);
+
+        i += 1;
+    }
 }

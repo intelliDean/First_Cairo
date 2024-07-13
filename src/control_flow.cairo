@@ -74,3 +74,27 @@ fn loop_with_continue() {
         i += 1;
     }
 }
+
+fn loop_with_return() {
+    let mut counter = 0;
+
+    let result = loop {
+        if counter == 10 {
+            break counter * 2;
+        }
+        counter += 1;
+    };
+
+    println!("The result is {}", result);
+}
+
+fn while_loop() {
+    let mut number = 3;
+
+    while number != 0 {
+        println!("{number}!");
+        number -= 1;
+    };
+
+    println!("LIFTOFF!!!");
+}
