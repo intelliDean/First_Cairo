@@ -33,14 +33,35 @@ fn main() {
     foo(p1);
     foo(p1);
 
-    
+
     let arr1: Array<u128> = array![1,2,3,4];
 
     let (arr2, len) = calculate_length(arr1);
 
     println!("array the length is {}",  len);
+
+    act_as_main();
 }
 
+
+
+fn act_as_main() {
+    let mut arr1: Array<u128> = array![];
+
+    let first_snapshot = @arr1; // Take a snapshot of `arr1` at this point in time
+    arr1.append(1); // Mutate `arr1` by appending a value
+
+    let first_length = calc_length(first_snapshot); // Calculate the length of the array when the snapshot was taken
+
+    let second_length = calc_length(@arr1); // Calculate the current length of the array
+
+    println!("The length of the array when the snapshot was taken is {}", first_length);
+    println!("The current length of the array after snapshop is {}", second_length);
+}
+
+fn calc_length(arr: @Array<u128>) -> usize {
+    arr.len()
+}
 
 fn calculate_length(arr: Array<u128>) -> (Array<u128>, usize) {
     let length = arr.len(); // len() returns the length of an array
